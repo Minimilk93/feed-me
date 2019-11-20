@@ -1,0 +1,51 @@
+{
+  "name": "feedme-tech-test",
+  "version": "1.0.0",
+  "description": "The FeedMe tech test comes with a mock data feed service that represents one of the many types of data feeds we have to process everyday at The Stars Group.",
+  "main": "src/app.js",
+  "scripts": {
+    "dev": "nodemon --exec babel-node ./src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thestarsgroup/feedme-tech-test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thestarsgroup/feedme-tech-test/issues"
+  },
+  "homepage": "https://github.com/thestarsgroup/feedme-tech-test#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.3.4",
+    "babel-jest": "^24.4.0",
+    "nodemon": "^1.18.10",
+    "eslint": "^5.15.1",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "faker": "^4.1.0",
+    "jest": "^24.3.1"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/env",
+        {
+          "targets": {
+            "node": "10.8.0"
+          }
+        }
+      ]
+    ]
+  }
+}
