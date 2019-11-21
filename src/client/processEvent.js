@@ -7,21 +7,23 @@ export default function processEvent(event) {
   return validEvent;
 
   function readEvent(event) {
-    let regex = new RegExp(/(?<!\\)\|/);
+    const regex = new RegExp(/(?<!\\)\|/);
     let splitEvent = event.split(regex);
     let header;
     let body;
     let eventObject;
+    console.log(event);
 
     try {
       header = makeheader(
         splitEvent[1],
         splitEvent[2],
         splitEvent[3],
-        splitEvent[4]
+        parseInt(splitEvent[4])
       );
       body = splitEvent.slice(5);
       eventObject = makeEventObject(header, body);
+
       return eventObject;
     } catch (e) {
       console.log(e);
