@@ -12,7 +12,6 @@ export default function processEvent(event) {
     let header;
     let body;
     let eventObject;
-    console.log(event);
 
     try {
       header = makeheader(
