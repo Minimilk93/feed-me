@@ -4,7 +4,8 @@
   "description": "The FeedMe tech test comes with a mock data feed service that represents one of the many types of data feeds we have to process everyday at The Stars Group.",
   "main": "src/app.js",
   "scripts": {
-    "dev": "nodemon --exec babel-node ./src/app.js"
+    "dev": "nodemon --exec babel-node ./src/app.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,8 @@
   },
   "homepage": "https://github.com/thestarsgroup/feedme-tech-test#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "split2": "^3.1.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -35,6 +37,10 @@
     "eslint-plugin-standard": "^4.0.0",
     "faker": "^4.1.0",
     "jest": "^24.3.1"
+  },
+  "jest": {
+    "verbose": true,
+    "testRegex": ".spec.js"
   },
   "babel": {
     "presets": [
