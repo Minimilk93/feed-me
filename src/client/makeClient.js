@@ -15,11 +15,9 @@ export default function makeClient() {
     processEvent(data);
   });
 
-  client.on('close', function(hadError) {
-    if (hadError) {
-      console.warn('Encountered an error, retrying...');
-      setTimeout(makeClient, 1000);
-    }
+  client.on('error', function() {
+    console.warn('Encountered an error, retrying...');
+    setTimeout(makeClient, 1000);
   });
 
   client.on('end', function() {
