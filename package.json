@@ -42,7 +42,8 @@
   },
   "jest": {
     "verbose": true,
-    "testRegex": ".spec.js"
+    "testRegex": ".spec.js",
+    "testEnvironment": "node"
   },
   "babel": {
     "presets": [

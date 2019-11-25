@@ -1,18 +1,15 @@
 import makeEvent from '../event/event';
 import makeMarket from '../market/market';
 import makeOutcome from '../outcome/outcome';
-import { updateEvent, updateMarket, updateOutcome } from '../db/handleEntity';
-import database from '../db/';
 
 export default function processEvent(event) {
-  readEvent(event);
+  return readEvent(event);
 
   function readEvent(event) {
     const regex = new RegExp(/(?<!\\)\|/);
     let splitEvent = event.split(regex);
     let header;
     let body;
-    let eventObject;
 
     try {
       header = makeheader(
@@ -22,9 +19,8 @@ export default function processEvent(event) {
         parseInt(splitEvent[4])
       );
       body = splitEvent.slice(5);
-      eventObject = makeEventObject(header, body);
 
-      return eventObject;
+      return makeFullObject(header, body);
     } catch (e) {
       console.log(e);
     }
@@ -39,21 +35,14 @@ export default function processEvent(event) {
     });
   }
 
-  async function makeEventObject(header, body) {
-    const makeDb = await database;
+  function makeFullObject(header, body) {
     switch (header.type) {
       case 'event':
-        const eventObject = makeEvent(header, body);
-        updateEvent(eventObject, makeDb);
-        break;
+        return makeEvent(header, body);
       case 'market':
-        const marketObject = makeMarket(header, body);
-        updateMarket(marketObject.body.eventId, marketObject, makeDb);
-        break;
+        return makeMarket(header, body);
       case 'outcome':
-        const outcomeObject = makeOutcome(header, body);
-        updateOutcome(outcomeObject.body.marketId, outcomeObject, makeDb);
-        break;
+        return makeOutcome(header, body);
       default:
         return;
     }

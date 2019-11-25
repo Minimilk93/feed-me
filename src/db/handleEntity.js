@@ -1,6 +1,6 @@
 import { Event } from './models/eventModel';
 
-export async function updateEvent(event) {
+export async function createEvent(event) {
   const feedMeEvent = await new Event(event.body);
 
   try {
@@ -10,27 +10,87 @@ export async function updateEvent(event) {
   }
 }
 
-export async function updateMarket(eventId, market) {
-  return await Event.findOne({ eventId: eventId }).exec((err, event) => {
+export async function updateEvent(eventId, event) {
+  Event.findOne({ eventId: eventId }, async function(err, foundEvent) {
+    event = foundEvent;
+
+    try {
+      await event.save();
+    } catch (err) {
+      console.error(err);
+    }
+  });
+}
+
+export async function createMarket(eventId, market) {
+  Event.findOne({ eventId: eventId }, async function(err, event) {
     if (event === null) {
       return;
     }
     event.markets.push(market.body);
-    event.save();
+
+    try {
+      await event.save();
+    } catch (err) {
+      console.error(err);
+    }
   });
 }
 
-export async function updateOutcome(marketId, outcome) {
-  const bob = await Event.findOne({ 'markets.marketId': marketId });
+export async function updateMarket(marketId, market) {
+  Event.findOne({ 'markets.marketId': marketId }, async function(err, event) {
+    if (event === null) {
+      return;
+    }
+    let filter = event.markets.filter(market => market.marketId === marketId);
+    filter[0] = market.body;
 
-  if (bob !== null) {
-    let filter = await bob.markets.filter(
-      market => (market.marketId = marketId)
-    );
+    try {
+      await event.save();
+    } catch (err) {
+      console.error(err);
+    }
+  });
+}
 
+export async function createOutcome(marketId, outcome) {
+  Event.findOne({ 'markets.marketId': marketId }, async function(err, event) {
+    if (event === null) {
+      return;
+    }
+    let filter = event.markets.filter(market => (market.marketId = marketId));
     filter[0].outcomes.push(outcome.body);
 
-    const updatedBob = await bob.save();
-    console.log(updatedBob);
-  }
+    try {
+      await event.save();
+    } catch (err) {
+      console.error(err);
+    }
+  });
+}
+
+export async function updateOutcome(marketId, outcomeId, outcome) {
+  Event.findOne({ 'markets.marketId': marketId }, async function(err, event) {
+    if (event === null) {
+      return;
+    }
+    let marketFilter = event.markets.filter(
+      market => (market.marketId = marketId)
+    );
+    let outcomeFilter = marketFilter.filter(
+      market => market.outcomeId === outcomeId
+    );
+
+    if (outcomeFilter[0] === null) {
+      marketFilter[0].outcomes.push(outcome.body);
+    } else {
+      outcomeFilter[0] === outcome.body;
+    }
+
+    try {
+      await event.save();
+    } catch (err) {
+      console.error(err);
+    }
+  });
 }

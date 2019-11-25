@@ -4,9 +4,9 @@ import makeFakeMarketPacket from './fixtures/fake-market-packet';
 import processEvent from '../src/client/processEvent';
 
 describe('Feed Me Client', () => {
-  it('should take an event packet and process it', () => {
+  it('should take an event packet and process it', async () => {
     const event = makeFakeEventPacket();
-    const processedEvent = processEvent(event);
+    const processedEvent = await processEvent(event);
 
     expect(processedEvent).toMatchObject({
       header: {
@@ -27,9 +27,9 @@ describe('Feed Me Client', () => {
     });
   });
 
-  it('should take a market packet and process it', () => {
+  it('should take a market packet and process it', async () => {
     const market = makeFakeMarketPacket();
-    const processedMarket = processEvent(market);
+    const processedMarket = await processEvent(market);
 
     expect(processedMarket).toMatchObject({
       header: {
@@ -48,9 +48,9 @@ describe('Feed Me Client', () => {
     });
   });
 
-  it('should take an outcome packet and process it', () => {
+  it('should take an outcome packet and process it', async () => {
     const outcome = makeFakeOutcomePacket();
-    const processedOutcome = processEvent(outcome);
+    const processedOutcome = await processEvent(outcome);
 
     expect(processedOutcome).toMatchObject({
       header: {
