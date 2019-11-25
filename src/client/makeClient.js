@@ -12,8 +12,8 @@ export default function makeClient() {
   });
 
   const stream = client.pipe(split());
-  stream.on('data', function(data) {
-    const event = processEvent(data);
+  stream.on('data', async function(data) {
+    const event = await processEvent(data);
     makeEventObject(event);
   });
 

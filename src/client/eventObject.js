@@ -7,31 +7,40 @@ import {
   updateOutcome
 } from '../db/handleEntity';
 
-export default function makeEventObject(header, body) {
-  return makeObject(header, body);
-
-  async function makeObject(header, body) {
-    if (header.operation === 'create') {
-      switch (header.type) {
+export default function makeEventObject(eventObject) {
+  return makeObject(eventObject);
+  async function makeObject(eventObject) {
+    if (eventObject.header.operation === 'create') {
+      switch (eventObject.header.type) {
         case 'event':
-          return createEvent(body);
+          createEvent(eventObject.body);
+          break;
         case 'market':
-          return createMarket(body.eventId, body);
+          createMarket(eventObject.body.eventId, eventObject.body);
+          break;
         case 'outcome':
-          return createOutcome(body.marketId, body);
+          createOutcome(eventObject.body.marketId, eventObject.body);
+          break;
         default:
           return;
       }
     }
 
-    if (header.operation === 'update') {
-      switch (header.type) {
+    if (eventObject.header.operation === 'update') {
+      switch (eventObject.header.type) {
         case 'event':
-          return updateEvent(body.eventId, body);
+          updateEvent(eventObject.body.eventId, eventObject.body);
+          break;
         case 'market':
-          return updateMarket(body.marketId, body);
+          updateMarket(eventObject.body.marketId, eventObject.body);
+          break;
         case 'outcome':
-          return updateOutcome(body.marketId, body.outcomeId, body);
+          updateOutcome(
+            eventObject.body.marketId,
+            eventObject.body.outcomeId,
+            eventObject.body
+          );
+          break;
         default:
           return;
       }

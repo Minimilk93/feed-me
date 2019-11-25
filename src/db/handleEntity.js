@@ -11,15 +11,10 @@ export async function createEvent(event) {
 }
 
 export async function updateEvent(eventId, event) {
-  Event.findOne({ eventId: eventId }, async function(err, foundEvent) {
-    event = foundEvent;
-
-    try {
-      await event.save();
-    } catch (err) {
-      console.error(err);
-    }
-  });
+  return await Event.findOneAndUpdate({ eventId, eventId }, event.body, {
+    new: true,
+    runValidators: true
+  }).exec();
 }
 
 export async function createMarket(eventId, market) {
