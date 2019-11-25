@@ -3,15 +3,13 @@ import makeMarket from '../market/market';
 import makeOutcome from '../outcome/outcome';
 
 export default function processEvent(event) {
-  const validEvent = readEvent(event);
-  return validEvent;
+  return readEvent(event);
 
   function readEvent(event) {
     const regex = new RegExp(/(?<!\\)\|/);
     let splitEvent = event.split(regex);
     let header;
     let body;
-    let eventObject;
 
     try {
       header = makeheader(
@@ -21,9 +19,8 @@ export default function processEvent(event) {
         parseInt(splitEvent[4])
       );
       body = splitEvent.slice(5);
-      eventObject = makeEventObject(header, body);
 
-      return eventObject;
+      return makeFullObject(header, body);
     } catch (e) {
       console.log(e);
     }
@@ -38,7 +35,7 @@ export default function processEvent(event) {
     });
   }
 
-  function makeEventObject(header, body) {
+  function makeFullObject(header, body) {
     switch (header.type) {
       case 'event':
         return makeEvent(header, body);

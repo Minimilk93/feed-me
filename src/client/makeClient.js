@@ -2,6 +2,7 @@ import net from 'net';
 import split from 'split2';
 
 import processEvent from './processEvent';
+import makeEventObject from './eventObject';
 
 export default function makeClient() {
   let client = new net.Socket();
@@ -11,8 +12,9 @@ export default function makeClient() {
   });
 
   const stream = client.pipe(split());
-  stream.on('data', function(data) {
-    processEvent(data);
+  stream.on('data', async function(data) {
+    const event = await processEvent(data);
+    makeEventObject(event);
   });
 
   client.on('error', function() {

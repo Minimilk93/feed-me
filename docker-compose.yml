@@ -1,9 +1,9 @@
 version: '2'
 services:
-  #mongo:
-  #  image: mongo
-  #  ports:
-  #    - "27017:27017"
+  mongo:
+    image: mongo
+    ports:
+      - '27017:27017'
 
   #zookeeper:
   #  image: wurstmeister/zookeeper
@@ -34,7 +34,7 @@ services:
   #      RABBITMQ_DEFAULT_VHOST: "/feedme"
 
   provider:
-      image: tsgtechtest/provider:1.0.0
-      ports:
-        - "8181:8181"
-        - "8282:8282"
+    image: tsgtechtest/provider:1.0.0
+    ports:
+      - '8181:8181'
+      - '8282:8282'
