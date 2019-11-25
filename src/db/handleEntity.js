@@ -1,19 +1,15 @@
 import { Event } from './models/eventModel';
 
 export async function createEvent(event) {
-  const feedMeEvent = await new Event(event.body);
-
-  try {
-    await feedMeEvent.save();
-  } catch (err) {
-    console.error(err);
-  }
+  const newEvent = await new Event(event).save();
+  await newEvent.save();
 }
 
 export async function updateEvent(eventId, event) {
-  return await Event.findOneAndUpdate({ eventId, eventId }, event.body, {
+  return await Event.findOneAndUpdate({ eventId, eventId }, event, {
     new: true,
-    runValidators: true
+    runValidators: true,
+    useFindAndModify: false
   }).exec();
 }
 
@@ -22,7 +18,7 @@ export async function createMarket(eventId, market) {
     if (event === null) {
       return;
     }
-    event.markets.push(market.body);
+    event.markets.push(market);
 
     try {
       await event.save();
@@ -38,7 +34,7 @@ export async function updateMarket(marketId, market) {
       return;
     }
     let filter = event.markets.filter(market => market.marketId === marketId);
-    filter[0] = market.body;
+    filter[0] = market;
 
     try {
       await event.save();
@@ -54,7 +50,7 @@ export async function createOutcome(marketId, outcome) {
       return;
     }
     let filter = event.markets.filter(market => (market.marketId = marketId));
-    filter[0].outcomes.push(outcome.body);
+    filter[0].outcomes.push(outcome);
 
     try {
       await event.save();
@@ -77,9 +73,9 @@ export async function updateOutcome(marketId, outcomeId, outcome) {
     );
 
     if (outcomeFilter[0] === null) {
-      marketFilter[0].outcomes.push(outcome.body);
+      marketFilter[0].outcomes.push(outcome);
     } else {
-      outcomeFilter[0] === outcome.body;
+      outcomeFilter[0] === outcome;
     }
 
     try {
