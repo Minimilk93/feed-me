@@ -9,7 +9,7 @@ function App() {
     let fixtureSet = new Set()
     let outcomesSet = new Set()
 
-    const getCategories = async () => {
+    const getCategories = () => {
         list &&
             list.map(listItem => {
                 fixtureSet.add(listItem.category)
@@ -18,7 +18,7 @@ function App() {
         return setCategories(fixtureSet)
     }
 
-    const getOutcomes = async () => {
+    const getOutcomes = () => {
         list && filterOutcomes(list)
     }
 
