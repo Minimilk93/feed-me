@@ -4,16 +4,34 @@ import FixtureList from './components/FixtureList'
 
 function App() {
     const [list, setList] = useState(null)
+    const [outcomes, setOutcomes] = useState(null)
     const [categories, setCategories] = useState(null)
     let fixtureSet = new Set()
+    let outcomesSet = new Set()
 
     const getCategories = async () => {
         list &&
             list.map(listItem => {
                 fixtureSet.add(listItem.category)
             })
-
+        getOutcomes()
         return setCategories(fixtureSet)
+    }
+
+    const getOutcomes = async () => {
+        list && filterOutcomes(list)
+    }
+
+    const filterOutcomes = list => {
+        list.filter(item => {
+            item.markets.filter(market => {
+                if (market.outcomes.length > 0) {
+                    return outcomesSet.add(item)
+                }
+            })
+        })
+
+        setOutcomes(outcomesSet)
     }
 
     useEffect(() => {
@@ -24,12 +42,23 @@ function App() {
     }, [list])
 
     return (
-        <div className="sbp__main">
+        <>
             <Header />
-            <div className="accordion__content">
-                <FixtureList listData={list} categories={categories} />
+            <div className="sbp__flex-layout">
+                <div className="sbp__main">
+                    <div className="outer-page-content">
+                        <div className="js-ui-state">
+                            <div className="trending-bets">
+                                <FixtureList
+                                    listData={outcomes}
+                                    categories={categories}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 

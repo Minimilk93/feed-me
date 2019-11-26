@@ -1,21 +1,30 @@
 import React from 'react'
 
-const FixtureItem = ({ listItem }) => {
+const FixtureItem = ({ outcome }) => {
+    const outcomeData = outcome.markets.filter(
+        market => market.outcomes.length > 0
+    )
+
     return (
         <>
-            <div className="cell--link">
-                <a
-                    href="/horse-racing/horse-racing-live/event/24985337"
-                    data-analytics="[Featured] - Horse Racing"
-                    className="cell--link__link  cell-text"
-                >
-                    <b className="cell-text__line">
-                        {listItem.name.replace(/\|/g, '')}
-                        <span class="cell-text__line--sub">
-                            {listItem.subCategory}
-                        </span>
-                    </b>
+            <div className="popular-outcome">
+                <a href="/go/event/24906715" className="outcome-link">
+                    <div className="outcome-details">
+                        <p className="outcome-name">
+                            {outcome.name.replace(/\|/g, '')}
+                        </p>
+                        <p className="event-name">
+                            {outcomeData[0].outcomes[0].name.replace(/\|/g, '')}
+                        </p>
+                    </div>
                 </a>
+                <div className="outcome-price">
+                    <div style={{ margin: 'auto' }}>
+                        <span style={{ color: 'red', 'font-weight': 'bold' }}>
+                            {outcomeData[0].outcomes[0].price}
+                        </span>
+                    </div>
+                </div>
             </div>
         </>
     )
