@@ -1,7 +1,7 @@
 import { Event } from './models/eventModel';
 
 export async function createEvent(event) {
-  const feedMeEvent = await new Event(event.body);
+  const feedMeEvent = await new Event(event);
 
   try {
     await feedMeEvent.save();
