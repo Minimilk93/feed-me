@@ -19,16 +19,22 @@ const marketSchema = Schema({
   outcomes: [outcomeSchema]
 });
 
-const eventSchema = Schema({
-  eventId: String,
-  category: String,
-  subCategory: String,
-  name: String,
-  startTime: Number,
-  displayed: Boolean,
-  suspended: Boolean,
-  markets: [marketSchema]
-});
+const eventSchema = Schema(
+  {
+    eventId: String,
+    category: String,
+    subCategory: String,
+    name: String,
+    startTime: Number,
+    displayed: Boolean,
+    suspended: Boolean,
+    markets: [marketSchema]
+  },
+  {
+    collection: 'events',
+    timestamps: true
+  }
+);
 
 export const Market = mongoose.model('Market', marketSchema);
 export const Event = mongoose.model('Event', eventSchema);

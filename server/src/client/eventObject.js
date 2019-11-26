@@ -9,6 +9,7 @@ import {
 
 export default function makeEventObject(eventObject) {
   return makeObject(eventObject);
+
   async function makeObject(eventObject) {
     if (eventObject.header.operation === 'create') {
       switch (eventObject.header.type) {
