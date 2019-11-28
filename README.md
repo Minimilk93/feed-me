@@ -10,28 +10,24 @@ We realise everyone has different levels of skill and experience when it comes t
 
 #### Basic Tasks
 
-- Create an app that connects the provider service on the exposed TCP port
-- Successfully connected to the provider service through Node's net module
-
-- Transform the proprietary data format into JSON using the field names and data types defined in the provider /types endpoint
+- Successfully connected to the provider service through Node's net module and set the project up to use ES6 module syntax to provide a cleaner solution which was nicer to write overall.
 - Using Regex, I split the data by the delimeters and built event, market and outcome objects depending on what type of object was received within the header object.
-
-- Write unit tests
-- Jest was used to unit test the app as it is quick and easy to set up. Additionally, its powerful included assertions made testing the app much easier.
+- Jest was used to unit test the app as it is quick and easy to set up and I am familiar with it. Additionally, its powerful included assertions made testing the app much easier. I wrote some tests and outlined others that I would write with more time.
 
 #### Intermediate Tasks
 
-- Save the JSON into a NoSQL store with a document per fixture. Each document should contain the event data and the child markets and outcomes for the fixture
+- I have saved the transformed packets in to a Mongo document store. Through using Mongoose I was able to use its abstractions and models to manipulate the data and query it. If this were a larger project, I probably would use MongoDBs native drivers for performance reasons.
 
 #### Additional Tasks
 
-- Implement a front end that displays the hierarchical NoSQL data.
-- Successfully created a small frontend in React to display outcome fixtures.
-- Create a Dockerfile for your app(s)
+- Successfully created a small frontend in React to display outcome fixtures. It displays as the list data prop updates which I would not do in a production app due to performance and possibilities of crashing the browser. Of course, a queuing system would be ideal in high traffic, event heavy solutions. For styling, I simply took the CSS and classes from the Sky Bet website.
+- Additionally, the frontend only displays outcomes and the list will update as new events are saved to Mongo that contain outcomes.
 
-## Languages
+## Running it
 
-We use a mixture of coding languages at The Stars Group but for data consumption we mainly use Java (Kotlin) and Node. For this tech test we recommend you use either Java or NodeJS, but if you don't know either or you can show off your skills better in another language then please do so.
+- Run the server with docker compose.
+- Run the backend server in the backend directory with `npm run dev`
+- Run the frontend server in the frontend directory with `yarn start`
 
 ## Getting Started
 
