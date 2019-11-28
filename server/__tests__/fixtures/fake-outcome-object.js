@@ -7,12 +7,23 @@ export function makeFakeOutcomeObject() {
       timestamp: 1574277276112
     },
     body: {
-      marketId: 'b24b89d7-a567-4490-88a0-b384b9efb1a7',
+      marketId: '7f8ce10e-2823-428d-a5b9-fd77ed7e03d3',
       outcomeId: 'bd5940d9-22b8-44e7-8954-f5dd013545ae',
       name: '|Reading| +2',
       price: '2/7',
       displayed: true,
       suspended: false
     }
+  });
+}
+
+export function makeFakeOutcomeDbObject() {
+  return Object.freeze({
+    marketId: '7f8ce10e-2823-428d-a5b9-fd77ed7e03d3',
+    outcomeId: 'bd5940d9-22b8-44e7-8954-f5dd013545ae',
+    name: '|Reading| +2',
+    price: '2/7',
+    displayed: true,
+    suspended: false
   });
 }
