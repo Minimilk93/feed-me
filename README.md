@@ -21,6 +21,7 @@ We realise everyone has different levels of skill and experience when it comes t
 #### Additional Tasks
 
 - Successfully created a small frontend in React to display outcome fixtures. It displays as the list data prop updates which I would not do in a production app due to performance and possibilities of crashing the browser. Of course, a queuing system would be ideal in high traffic, event heavy solutions. For styling, I simply took the CSS and classes from the Sky Bet website.
+- Additionally, the frontend only displays outcomes and the list will update as new events are saved to Mongo that contain outcomes.
 
 ## Running it
 
